@@ -1,0 +1,30 @@
+"use strict";
+// Створіть union-тип для трьох типів : 
+// car (модель, власник), bus (компанія, кількість місць), airplane (швидкість, тип палива). 
+// Створити функцію, яка приймає параметр цього типу і виводить повну інформацію про об'єкт.
+if (confirm('Почати тестування?')) {
+    function printVehicleInfo(vehicle) {
+        let vehicleInfo = '';
+        switch (vehicle.type) {
+            case 'car':
+                vehicleInfo = `🚗 ${vehicle.type[0].toUpperCase() + vehicle.type.slice(1, vehicle.type.length)} model: ${vehicle.model}, owner: ${vehicle.owner}`;
+                break;
+            case 'bus':
+                vehicleInfo = `🚌 Bus company: ${vehicle.company}, seats: ${vehicle.seats}`;
+                break;
+            case 'airplane':
+                vehicleInfo = `✈️ Airplane speed: ${vehicle.speed}, fuelType: ${vehicle.fuelType}`;
+                break;
+            default:
+                const _exhaustive = vehicle;
+                throw new Error(`Unknown vehicle type ${vehicle}`);
+        }
+        document.write(`${vehicleInfo}<br/>`);
+    }
+    const car = { type: 'car', model: 'BMW X5', owner: 'Artemij' };
+    const bus = { type: 'bus', company: 'FlixBus', seats: 50 };
+    const airplane = { type: 'airplane', speed: 900, fuelType: 'kersoine' };
+    printVehicleInfo(car);
+    printVehicleInfo(bus);
+    printVehicleInfo(airplane);
+}
