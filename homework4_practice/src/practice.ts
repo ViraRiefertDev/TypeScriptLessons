@@ -1,0 +1,298 @@
+// =============== ФУНкЦІЇ ==================
+
+//=========================================================================================
+// 1. Функція formatName повертає ім’я у форматі "First Last", або просто "First".
+// function formatName(firstName:string,lastName?:string):string{
+//   return lastName ? `${firstName} ${lastName}`:`${firstName}`
+// }
+
+// console.log(formatName('Vira'))
+// console.log(formatName('Vira', 'Riefert'))
+
+//=========================================================================================
+// 2. Функція повертає середнє арифметичне з будь-якої кількості чисел.
+// function getAvarage(...numbers:number[]):number{
+//   return numbers.reduce((prevSum, number)=>prevSum+number,0)/numbers.length
+// }
+// console.log(getAvarage(1,4,7,4,11,2,345).toFixed(2))
+
+//=========================================================================================
+// 2.1. Функція виводить на екран тільки ті рядки, довжина яких є більшою за 5. 
+// Кількість параметрів-рядків може бути довільною.
+// function printGreaterLength(lengthLimit:number, ...lines:string[]){
+//   lines.forEach((line)=>{
+//     if(line.length>lengthLimit){
+//       document.write(`${line} <br/>`)
+//     }
+//   })
+// }
+
+// printGreaterLength(3,'Vira', 'Artemij','Violetta', 'Ekaterina', 'John', 'Bob')
+
+//=========================================================================================
+// 2.2. Функція повертає кількість входжень символу у рядку.
+// function countOfEntries(char:string,line:string){
+//  return line.split('').reduce((prevCount,letter)=>letter===char ? prevCount+1:prevCount,0)
+// }
+// console.log(countOfEntries('l', 'Hellllo World'))
+
+//=========================================================================================
+// 2.2. Функція приймає довільну кількість рядків і повертає один рядок, розділений комами.
+// function getJoinedString(...strings:string[]){
+//   return strings.join(', ')
+// }
+// console.log(getJoinedString('hello', 'my', 'dear', 'friends'))
+
+//=========================================================================================
+// 2.3. Функція приймає масив ідентифікаторів (чисел або рядків). Пірадувати кількість ідентифікаторів чисел.
+// function countOfNumberId(idArray:(number | string)[]):number{
+//   return idArray.reduce((prevCount:number,id)=>typeof id === 'number' ? prevCount+1 : prevCount,0)
+// }
+// console.log(countOfNumberId([1,'3',5,7,'10']))
+
+//=========================================================================================
+// 3. Напиши функцію, яка повертає тільки ті числа, для яких predicate (функція-предикат, яка визначає умову) повертає true
+// type callBackFunc = (n:number)=>boolean
+// function filterNumbers(numbers:number[], func:callBackFunc):number[]{
+//   return numbers.filter(func)
+// }
+
+// console.log(filterNumbers([2,5,22,54,23,5,7],(number)=>number<10))
+
+//=========================================================================================
+// 4. Напиши узагальнену функцію, яка повертає перший елемент параметра-масиву незалежно від типу.
+// function getFirstElement(array:any[]):any{
+//   return array[0]
+// }
+
+// console.log(getFirstElement([1,6,4,6]))
+// console.log(getFirstElement(['hello','world','in','mi']))
+
+//=========================================================================================
+// 5. Оголоси об’єкт counter із властивістю count: number та методом increment, який збільшує count на 1 
+// (викоритати this у параматрах).
+// interface ICounter{
+//   count:number;
+//   increment:(this:{count:number})=>void
+// }
+// const counter:ICounter = {
+//   count:3,
+//   increment:function(){
+//     this.count++
+//   }
+// }
+// counter.increment()
+// console.log(counter.count)
+// counter.increment()
+// console.log(counter.count)
+// counter.increment()
+// console.log(counter.count)
+
+//=========================================================================================
+// 5.1. Таймер. Властивість seconds  і метод tick (викорстати параметр this)
+// interface ITimer{
+//   seconds:number,
+//   tick:(this:{seconds:number})=>void
+// }
+
+// const timer:ITimer = {
+//   seconds:59,
+//   tick:function(){
+//     this.seconds++
+//     if(this.seconds>60){
+//       this.seconds=0
+//     }
+//   }
+// }
+
+// const timer2 = {
+//   seconds:44
+// }
+// timer.tick.call(timer2)
+// console.log(timer2.seconds)
+// console.log(timer.seconds)
+// timer.tick()
+// console.log(timer.seconds)
+// timer.tick()
+// console.log(timer.seconds)
+
+//=========================================================================================
+// 6. Функція-композитор. Напиши функцію яка приймає кілька функцій і повертає нову, 
+// що виконує їх послідовно зліва направо (і результат попередньої і вхідним параметром для наступної).
+// type OperationFunc = (n:number)=>number
+
+// function myComposeFunc(initNumber:number, ...functions:OperationFunc[]):number{
+//   let res = initNumber
+//   functions.forEach((func)=>res=func(res))
+//   return res
+// }
+
+// console.log(myComposeFunc(10, (x)=>x*2, (x)=>x+100, (x)=>x-10))
+
+// type OperationFunc = (n:number)=>number
+
+// function getComposeFunc(...functions:OperationFunc[]):OperationFunc{
+//   function composeFunc(initNumber:number):number{
+//   let res = initNumber
+//   functions.forEach((func)=>res=func(res))
+//   return res
+//   }
+//   return composeFunc
+// }
+
+// const operationFunc = getComposeFunc((x)=>x*2, (x)=>x+100, (x)=>x-10)
+// let r = operationFunc(10)
+// console.log(r)
+// r=operationFunc(100)
+// console.log(r)
+//=========================================================================================
+// 7. Логгер з рівнем важливості. Функція приймає повідомлення і рівень важливості ("info", "warn" , "error").
+// type LevelType = 'info' | 'warn' | 'error'
+// function myLog(type:LevelType,message:string){
+//   switch (type) {
+//     case 'info':
+//       console.info(message)
+//       break;
+//     case 'warn':
+//       console.warn(message)
+//       break;
+//     case 'error':
+//       console.error(message)
+//       break;
+
+//     default:
+//       const _check:never = type
+//       throw new Error(`unknown LevelType:${type}`)
+//   }
+// }
+// myLog('info', 'OK')
+// myLog('warn', 'Test w')
+// myLog('error', 'TestError')
+// =============== ПЕРЕВАНТАЖЕННЯ ===========
+// 1. Калькулятор. Створи функцію calculate, яка:
+// •	при виклику calculate(2, 3, "+") повертає 5
+// •	при виклику calculate(2, 3, "*") повертає 6
+// •	при виклику calculate(2, ‘OK’, "*") повертає ‘OKOK’
+// •	при виклику calculate("2", "3", "+") повертає "23"
+
+// function calculate(val1:number,val2:number, operator:'+' | '*'):number
+// function calculate(val1:number,val2:string, operator:'*'):string
+// function calculate(val1:string,val2:string, operator:'+'):string
+
+// function calculate(val1:any, val2:any, operator:'+'|'*'):any{
+//   if(operator === '+'){
+//       return val1+val2
+//   }else{
+//     if(typeof val2==='string'){
+//       return val2.repeat(val1)
+//     }else{
+//       return val1*val2
+//     }
+//   }
+
+// }
+// console.log(calculate(2, 3, "+"))
+// console.log(calculate(2, 3, "*"))
+// console.log(calculate(2, 'OK', "*"))
+// console.log(calculate("2", "3", "+"))
+
+
+
+//! 2. Форматування дати Функція formatDate:
+// •	приймає Date і повертає рядок формату YYYY-MM-DD;
+// •	або приймає string і повертає Date.
+
+
+// 3. Перевантаження для логування. Функція log:
+// •	якщо передано string → просто друкує,
+// •	якщо string[] → друкує кожен рядок окремо.
+// // Перевірка (в консолі)
+
+
+// 4. Пошук користувача. Функція findUser:
+// •	якщо передано id: number → повертає користувача з масиву за id;
+// •	якщо name: string → шукає користувача за іменем.
+
+
+// 5. Перетворення у верхній/нижній регістр. Функція changeCase:
+// •	якщо передано один рядок → повертає toUpperCase(),
+// •	якщо два рядки й 'lower' → об’єднує і знижує регістр.
+
+// 6. Гнучка функція reverse. Функція reverse:
+
+
+// 7. Злиття або порівняння. Функція processInput приймає або два масиви — зливає їх, або два числа — повертає різницю.
+
+
+// ========================== union ==================================
+// 1.	Форматування повідомлення. Функція formatMessage приймає або рядок, або число(повертає рядок з символом «#»), і повертає рядок (у верхньому регістрі).
+
+
+
+// 2.	Визначення площі фігури. Створи типи для Circle і Rectangle та функцію getArea(shape), що обчислює площу залежно від типу фігури.
+
+// 3.	Обробка помилки або успішного результату. Тип Result може бути або Success, або Error. Напиши функцію, яка друкує результат.
+
+// 4.	Прийом різних форматів часу. Функція toDate приймає або Date, або рядок, і повертає Date.
+
+
+// =============== enum ==================
+// 1.	Визначення днів тижня. Перевірити чи вихідний.
+// enum WeekDay {
+//   Sun,
+//   Mon,
+//   Tue,
+//   Wen,
+//   Thu,
+//   Fri,
+//   Sat,
+// }
+
+
+// 2.	Є чіткий набір можливих варіантів (up/down/left/right) і важливо уникнути орфографічних помилок. Зробити функцію, яка б воводила напрямок у верхньому регістрі.
+// enum Direction {
+//   Up = 'up',
+//   Down = 'down',
+//   Left = 'left',
+//   Right = 'right',
+// }
+
+
+// 3.	Рівні логування. Треба задати стабільні рівні логів (тип логів: Info,  Warn,  Error). Ррозробити функції для логування з використанням відповідних методів.
+
+
+// 4.	Статуси замовлення. Є бізнес-логіка з фіксованими станами ("pending", "shipped", "delivered", "cancelled"). Дано масив об'єктів з відповідними статустами. Створити функцію, яка б повертала відфільтрований список за значенням статусу.
+
+// 5.	Типи користувачів у системі.  Є фіксований набір ролей із різними правами доступу (Admin, Editor,  Viewer). Визначити кількість адмінів.
+
+
+// 6.	Типи користувачів у системі.  Є фіксований набір ролей із різними правами доступу  (Admin, Editor,  Viewer). Вони описані у порядку спадання важливості.  На основі заданого статусу треба визначити чи є він найвищим.
+
+
+
+// 7.	Типи оплати. Потрібно обробляти кілька типів оплати ("cash", "card",  "applePay") у функціях чи API. Визначити сумарно скільки було зроблено оплат кожним з видів
+// 8.	Режими гри. Є фіксовані режими або складності гри (Easy,  Normal,  Hard). Розробити функцію, для визначення кількості суперників у залежності від складності (2, 5, 30).
+// 9.	Статуси мережі.
+// 10.	Є набір стабільних станів користувачів ("online", "offline","connecting"). Якщо користувач "offline", то повідмляти його про це.
+
+// =============== ПЕРЕВІРКА ТИПІВ ==================
+// 1.	Напиши функцію assertIsNameString, яка перевіряє, що параметр є рядком і починається з великої літери
+
+
+
+// 2.	Перевірка на число.
+
+
+// 3.	Перевірка на об'єкт дати.
+
+
+// 4.	Перевірка на масив чисел
+
+// 5.	Перевірка на масив рядків
+// 6.	Перевірка на об’єкт (не null)
+// 7.	Перевірка на певний тип об’єкта
+// type User = { name: string; age: number }
+
+// 8.	Перевірка типу через об’єднання (union)
+
+// 9.	У локальному сховищі (localStorage) збережено масив об’єктів різних типів : користувачів (User) та замовлень (Order). Зчитати дані з localStorage. Визначити, які елементи належать до типу User, а які — до Order. Розділити їх у два окремі масиви.
